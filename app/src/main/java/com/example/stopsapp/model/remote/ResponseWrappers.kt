@@ -1,4 +1,5 @@
 package com.example.stopsapp.model.remote
+
 import com.google.gson.annotations.SerializedName
 
 data class ResponseStop( // principal object of stop.

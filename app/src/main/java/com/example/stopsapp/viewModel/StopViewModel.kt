@@ -13,8 +13,9 @@ class StopViewModel(private val repository: StopRepository) : ViewModel() {
 
     init {
         //This will be HardCoded for the test
-        val map = mapOf<String, String>(Pair("center_lat", "-33.444087"),
-            Pair("center_lon","-70.653674"),
+        val map = mapOf<String, String>(
+            Pair("center_lat", "-33.444087"),
+            Pair("center_lon", "-70.653674"),
             Pair("limit", "20")
         )
         fetchStopData(map)

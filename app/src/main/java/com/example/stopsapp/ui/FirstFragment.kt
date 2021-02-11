@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stopsapp.AppStop
 import com.example.stopsapp.R
 import com.example.stopsapp.databinding.FragmentFirstBinding
+import com.example.stopsapp.ui.adapter.StopAdapter
 import com.example.stopsapp.viewModel.StopViewModel
 import com.example.stopsapp.viewModel.StopViewModelFactory
 
@@ -35,12 +37,31 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val adapter = StopAdapter()
+        setAdapter(adapter)
+    }
 
+    private fun setAdapter(adapter: StopAdapter) {
+        setRecyclerView(adapter)
+        selectItemFromAdapter(adapter)
         viewModel.currentStopDataFlow.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding.textviewFirst.text = it.toString()
+                adapter.updateData(it)
             }
         })
+    }
 
+    private fun setRecyclerView(adapter: StopAdapter) {
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context,
+            DividerItemDecoration.VERTICAL))
+    }
+
+    private fun selectItemFromAdapter(adapter: StopAdapter) {
+        adapter.selectedItem().observe(viewLifecycleOwner, Observer {
+            viewModel.fetchRouteData(it.stopId)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        })
     }
 }

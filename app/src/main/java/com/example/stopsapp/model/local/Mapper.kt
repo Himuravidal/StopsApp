@@ -1,7 +1,6 @@
 package com.example.stopsapp.model.local
 
 import com.example.stopsapp.model.remote.ResponseStop
-import com.example.stopsapp.model.remote.StopDataRemote
 import com.example.stopsapp.model.remote.StopRoutesItem
 
 fun fromRemoteToEntityStop(wrapper: ResponseStop) : List<StopData> {
