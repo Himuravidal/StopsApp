@@ -16,5 +16,6 @@ data class RouteData(  // object for id and name of the route
     val routeColor: String,
     @PrimaryKey
     val routeId: String,
-    val routeLongName: String
+    val routeLongName: String,
+    val stopID: String
 )

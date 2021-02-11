@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface StopDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllStop(listStop: StopData)
+    suspend fun insertAllStop(listStop: List<StopData>)
 
     @Query("SELECT * FROM stop_table")
     fun getAllStopData(): Flow<List<StopData>>

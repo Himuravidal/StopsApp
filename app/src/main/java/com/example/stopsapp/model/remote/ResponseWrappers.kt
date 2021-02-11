@@ -5,12 +5,12 @@ data class ResponseStop( // principal object of stop.
     @SerializedName("has_next") val hasNext: Boolean,
     @SerializedName("page_number") val pageNumber: Int,
     @SerializedName("page_size") val pageSize: Int,
-    @SerializedName("results") val results: List<StopData>,
+    @SerializedName("results") val results: List<StopDataRemote>,
     @SerializedName("total_pages") val totalPages: Int,
     @SerializedName("total_results") val totalResults: Int
 )
 
-data class StopData( //Stop object for data
+data class StopDataRemote( //Stop object for data
     @SerializedName("stop_code") val stopCode: String,
     @SerializedName("stop_id") val stopId: String,
     @SerializedName("stop_name") val stopName: String

@@ -11,5 +11,5 @@ interface StopAPI {
     suspend fun fetchStopData(@QueryMap params: Map<String, String>) : Response<ResponseStop>
 
     @GET("stops/{stopId}/stop_routes")
-    suspend fun fetchRouteStop(@Path("stopId") stopId: String): Response<StopRoutesItem>
+    suspend fun fetchRouteStop(@Path("stopId") stopId: String): Response<List<StopRoutesItem>>
 }

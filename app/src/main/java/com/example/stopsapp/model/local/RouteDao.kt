@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.Flow
 interface RouteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllRoute(listRoute: RouteData)
+    suspend fun insertAllRoute(listRoute: List<RouteData>)
 
-    @Query("SELECT * FROM route_table")
-    fun getAllStopData(): Flow<List<RouteData>>
+    @Query("SELECT * FROM route_table WHERE stopID = :stopId")
+    fun getAllStopData(stopId: String): Flow<List<RouteData>>
 
 }
