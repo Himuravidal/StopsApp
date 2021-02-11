@@ -13,5 +13,5 @@ interface StopDao {
     suspend fun insertAllStop(listStop: List<StopData>)
 
     @Query("SELECT * FROM stop_table")
-    fun getAllStopData(): Flow<List<StopData>>
+     fun getAllStopData(): Flow<List<StopData>>
 }

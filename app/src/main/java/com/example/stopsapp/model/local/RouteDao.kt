@@ -14,6 +14,6 @@ interface RouteDao {
     suspend fun insertAllRoute(listRoute: List<RouteData>)
 
     @Query("SELECT * FROM route_table WHERE stopID = :stopId")
-    fun getAllStopData(stopId: String): Flow<List<RouteData>>
+    fun getAllRouteData(stopId: String): Flow<List<RouteData>>
 
 }

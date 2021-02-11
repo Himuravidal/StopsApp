@@ -17,7 +17,7 @@ class StopRepository(private val stopDao: StopDao, private val routeDao: RouteDa
     }
 
     fun getAllRouteData(stopId: String): Flow<List<RouteData>> {
-        return routeDao.getAllStopData(stopId)
+        return routeDao.getAllRouteData(stopId)
     }
 
     fun exposeErrorMessages(): LiveData<String> {

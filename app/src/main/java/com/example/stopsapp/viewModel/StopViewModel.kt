@@ -38,4 +38,6 @@ class StopViewModel(private val repository: StopRepository) : ViewModel() {
     fun getRouteSelectedFromDB(): LiveData<List<RouteData>> =
         repository.getAllRouteData(stopSelected).asLiveData()
 
+    //observe Error
+    fun getErrorFromFetch(): LiveData<String> = repository.exposeErrorMessages()
 }

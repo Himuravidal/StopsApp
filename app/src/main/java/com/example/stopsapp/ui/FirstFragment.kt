@@ -1,10 +1,11 @@
 package com.example.stopsapp.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -23,13 +24,13 @@ import com.example.stopsapp.viewModel.StopViewModelFactory
 class FirstFragment : Fragment() {
 
     private lateinit var binding: FragmentFirstBinding
-    private val viewModel : StopViewModel by activityViewModels {
+    private val viewModel: StopViewModel by activityViewModels {
         StopViewModelFactory((activity?.application as AppStop).repository)
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,6 +40,7 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapter = StopAdapter()
         setAdapter(adapter)
+        observeErrors()
     }
 
     private fun setAdapter(adapter: StopAdapter) {
@@ -54,14 +56,27 @@ class FirstFragment : Fragment() {
     private fun setRecyclerView(adapter: StopAdapter) {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(context,
-            DividerItemDecoration.VERTICAL))
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
 
     private fun selectItemFromAdapter(adapter: StopAdapter) {
         adapter.selectedItem().observe(viewLifecycleOwner, Observer {
             viewModel.fetchRouteData(it.stopId)
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        })
+    }
+
+    private fun observeErrors() {
+        val errorMsg = getString(R.string.erroMsg)
+        viewModel.getErrorFromFetch().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(context, it + errorMsg, Toast.LENGTH_LONG).show()
+            }
         })
     }
 }
